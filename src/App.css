@@ -1,38 +1,252 @@
+body {
+  margin: 0;
+  font-family: 'Helvetica Neue', sans-serif;
+  background-color: #ffffff;
+  color: #1a1a1a;
+  scroll-behavior: smooth;
+}
+
 .App {
-  text-align: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar {
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(255, 255, 255, 0.95);
+  z-index: 100;
+  opacity: 1;
+  transform: translateY(0);
+  transition: background 0.3s ease;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.navbar-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.navbar:hover {
+  background: #ffffff;
+}
+
+.logo {
+  font-weight: bold;
+  font-size: 1.4rem;
+  color: #1a1a1a;
+  text-decoration: none;
+}
+
+.menu-toggle {
+  display: none;
+  cursor: pointer;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+}
+
+.nav-links.open {
+  display: flex;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #1a1a1a;
+  transition: color 0.3s ease;
+}
+
+.nav-links a:hover {
+  color: #0ea67f;
+}
+
+.nav-contact {
+  background-color: #ffffff;
+  color: #1a1a1a;
+  padding: 0.5rem 1rem;
+  border-radius: 20px;
+  transition: background-color 0.3s ease;
+}
+
+.nav-contact:hover {
+  background-color: #ffffff;
+}
+
+/* Secciones */
+
+.hero {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  padding: 10rem 1rem 6rem;
+  background-color: #ffffff;
+  text-align: center;
 }
 
-.App-link {
-  color: #61dafb;
+.hero-text h1 {
+  font-size: 3rem;
+  font-weight: 700;
+  margin-bottom: 1rem;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
+.highlight {
+  background-color: #1a1a1a;
+  color: #ffd4e0;
+  padding: 0 0.3rem;
+  border-radius: 6px;
+}
+
+.hero-text p {
+  font-size: 1.1rem;
+  max-width: 480px;
+  margin-bottom: 2rem;
+}
+
+.btn-primary {
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0.75rem 1.5rem;
+  border-radius: 10px;
+  border: none;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #fbb6ca;
+}
+
+.carousel-section {
+  padding: 4rem 0;
+}
+
+.carousel {
+  overflow: hidden;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 1rem;
+}
+
+.carousel-item {
+  min-width: 250px;
+  background: #ffffff;
+  border-radius: 12px;
+  text-align: center;
+  padding: 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.carousel-item img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.carousel-section h2 {
+  text-align: center;
+  margin-bottom: 2rem;
+  font-size: 2rem;
+}
+
+.about.section-dark {
+  background-color: #0e2e2e;
+  color: #ffffff;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.about.section-dark h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  color: #fbb6ca;
+}
+
+.about.section-dark p {
+  font-size: 1.1rem;
+  line-height: 1.8;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.testimonios {
+  padding: 4rem 1rem;
+}
+
+.testimonios-grid {
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  margin-top: 2rem;
+}
+
+.testimonio {
+  background: #ffffff;
+  padding: 1.5rem;
+  border-radius: 10px;
+  font-style: italic;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.testimonio strong {
+  display: block;
+  margin-top: 1rem;
+  color: #0ea67f;
+}
+
+.section-dark.contact {
+  background-color: #0e2e2e;
+  color: #ffffff;
+  padding: 4rem 1rem;
+  text-align: center;
+}
+
+.section-dark.contact h2 {
+  color: #fbb6ca;
+  margin-bottom: 1rem;
+}
+
+@media (max-width: 768px) {
+  .navbar-content {
+    flex-wrap: wrap;
   }
-  to {
-    transform: rotate(360deg);
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .nav-links {
+    flex-direction: column;
+    background: #f8c8dc;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    width: 100%;
+    display: none;
+    padding: 1rem 0;
+  }
+
+  .nav-links.open {
+    display: flex;
+  }
+
+  .hero {
+    padding: 6rem 1rem 3rem;
+  }
+
+  .hero-text h1 {
+    font-size: 2rem;
   }
 }
