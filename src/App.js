@@ -200,7 +200,7 @@ function App() {
           </button>
         </div>
         <div className="hero-image-wrapper" ref={heroImageRef}>
-          <img src="/images/hero-image.jpg" alt="" className="hero-image" />
+        
         </div>
       </section>
 
@@ -308,7 +308,7 @@ function App() {
         ) : (
           <div className="cart-items-container">
             {cartItems.map((item, i) => {
-              console.log("Cart Item:", item); // Verifica cada item renderizado
+              console.log("Cart Item:", item);
               return (
                 <div className="cart-item" key={i}>
                   <img src={`/images/${item.image}`} alt={item.name} />
