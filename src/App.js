@@ -61,7 +61,7 @@ function App() {
       <nav className="navbar">
         <div className="navbar-content">
           <a href="https://www.instagram.com/entre.hilos.co/" className="logo" target="_blank" rel="noopener noreferrer">
-            Entre Hilos
+            MayArt
           </a>
           <FaBars className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} />
           <div className={`nav-links ${menuOpen ? 'open' : ''}`}>  
