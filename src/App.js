@@ -200,7 +200,7 @@ function App() {
           </button>
         </div>
         <div className="hero-image-wrapper" ref={heroImageRef}>
-          <img src="/images/hero-image.jpg" alt="Cuadro hecho a mano" className="hero-image" />
+          <img src="/images/hero-image.jpg" alt="" className="hero-image" />
         </div>
       </section>
 
