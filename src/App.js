@@ -303,7 +303,6 @@ function App() {
         <p>Ser reconocidos como una marca líder en servicios integrales en diseño de interiores,
           productos de arte y regalos personalizados. Destacándonos por nuestra calidad,
           innovación y el impacto emocional que generan nuestras creaciones en las personas y sus relaciones.</p>
-        <h2>Valores de Mayart</h2>
 
       </section>
 
