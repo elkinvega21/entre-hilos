@@ -7,7 +7,7 @@ html {
   margin: 0;
   padding: 0;
   font-family: 'Arial', sans-serif;
-  background-color: #f4f4f4;
+  background-color: #e9cfcf;
   color: #333;
   scroll-behavior: smooth;
 }
@@ -302,7 +302,8 @@ a {
 .productos-container {
   display: flex;
   max-width: 1200px;
-  margin: 0 auto;
+  margin-left: 20px; /* Ajusta este valor al desplazamiento deseado */
+  margin-right: auto; /* Mantiene el margen derecho automático */
   gap: 30px;
   flex-wrap: wrap;
 }

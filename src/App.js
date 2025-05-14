@@ -11,7 +11,7 @@ function App() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [cartItems, setCartItems] = useState([]);
-  const [priceFilter, setPriceFilter] = useState(50000);
+  const [precioFilter, setPrecioFilter] = useState(50000);
   const [colorFilter, setColorFilter] = useState('');
   const [bannerVisible, setBannerVisible] = useState(true);
   const navbarRef = useRef(null);
@@ -24,21 +24,25 @@ function App() {
   const [aboutLoaded, setAboutLoaded] = useState(false);
   const [contactLoaded, setContactLoaded] = useState(false);
   const [productos, setProductos] = useState([
-    { name: 'Cuadro Floral', price: 25000, description: 'Hermoso cuadro floral hecho en lienzo.', image: 'producto1.jpg', color: '#f0f' },
-    { name: 'Cojín Verde Musgo', price: 18000, description: 'Cojín suave con tono verde musgo.', image: 'producto2.jpg', color: '#0f0' },
-    { name: 'Camino de Mesa', price: 32000, description: 'Camino de mesa artesanal de lino.', image: 'producto3.jpg', color: '#fff' },
-    { name: 'Otro Cuadro', price: 45000, description: 'Cuadro abstracto moderno.', image: 'producto4.jpg', color: '#00f' },
-    { name: 'Cojín Texturizado', price: 28000, description: 'Cojín con textura agradable.', image: 'producto5.jpg', color: '#ccc' },
+    { name: 'Brillo Lunar', precio: 25000, description: 'Hermoso cuadro de fauna hecho en lienzo.', image: 'producto1.jpg', color: '#f0f' },
+    { name: 'Vibra Cósmica', precio: 18000, description: 'Cojín suave con tono verde musgo.', image: 'producto2.jpg', color: '#0f0' },
+    { name: 'Susurro de Lavanda', precio: 32000, description: 'Camino de mesa artesanal de lino.', image: 'producto3.jpg', color: '#fff' },
+    { name: 'Lienzo Pastel', precio: 45000, description: 'Cuadro abstracto moderno.', image: 'producto4.jpg', color: '#00f' },
+    { name: 'Eco Sereno', precio: 28000, description: 'Cojín con textura agradable.', image: 'producto5.jpg', color: '#ccc' },
+    { name: 'Cálido Amanecer', precio: 35000, description: 'Cuadro de paisaje vibrante.', image: 'producto6.jpg', color: '#f00' },
+    { name: 'Sueños de Algodón', precio: 20000, description: 'Cojín suave y acogedor.', image: 'producto7.jpg', color: '#000' },
+    { name: 'Brillo de Estrellas', precio: 30000, description: 'Cuadro de estrellas en el cielo.', image: 'producto8.jpg', color: '#ff0' },
+    { name: 'Naturaleza Viva', precio: 40000, description: 'Cuadro de naturaleza vibrante.', image: 'producto9.jpg', color: '#0ff' },
   ]);
 
   const comentarios = [
-    "Los cojines son espectaculares",
-    "Mis sábanas nunca habían sido tan suaves",
-    "Excelente atención y envío rápido"
+    " ✨ Cautivadora obra. Belleza y emoción únicas. ¡Una inversión para el alma! ✨",
+    " 🌟 La calidad es excepcional. Cada detalle cuenta una historia. ¡Recomiendo al 100%! 🌟",
+    " 💖 Un regalo perfecto. La sonrisa de mi amiga lo dice todo. ¡Gracias por la magia! 💖",
   ];
 
   useEffect(() => {
-    // Lenis smooth scroll
+
     const lenis = new Lenis({ duration: 1.2, easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)), smooth: true });
     function raf(time) { lenis.raf(time); requestAnimationFrame(raf); }
     requestAnimationFrame(raf);
@@ -69,15 +73,17 @@ function App() {
             trigger: ref.current,
             start: 'top 80%',
             onEnter: () => {
-              ref.current.classList.add('loaded');
-              if (ref.current === testimoniosRef.current) {
-                setTestimoniosLoaded(true);
-              }
-              if (ref.current === aboutRef.current) {
-                setAboutLoaded(true);
-              }
-              if (ref.current === contactRef.current) {
-                setContactLoaded(true);
+              if (ref.current) { // Añadida verificación para ref.current
+                ref.current.classList.add('loaded');
+                if (ref.current === testimoniosRef.current) {
+                  setTestimoniosLoaded(true);
+                }
+                if (ref.current === aboutRef.current) {
+                  setAboutLoaded(true);
+                }
+                if (ref.current === contactRef.current) {
+                  setContactLoaded(true);
+                }
               }
             },
             // markers: true,
@@ -87,30 +93,41 @@ function App() {
     });
 
 
-    // Inicia el carrusel solo si el ref está definido
     if (carouselRef.current) {
       const track = carouselRef.current.querySelector('.carousel-track');
-      const itemWidth = carouselRef.current.querySelector('.carousel-item').offsetWidth;
+      const items = Array.from(carouselRef.current.querySelectorAll('.carousel-item'));
+      const itemWidth = items[0].offsetWidth;
       const trackWidth = track.scrollWidth;
       let x = 0;
       let direction = -1;
-      const speed = 0.5; // Velocidad de desplazamiento
+      const speed = 3.0;
+
+      items.forEach(item => {
+        const duplicate = item.cloneNode(true);
+        track.appendChild(duplicate);
+      });
+
+      const duplicatedTrackWidth = track.scrollWidth;
 
       gsap.ticker.add(() => {
         x += direction * speed;
 
-        if (x <= -trackWidth) {
-          x = 0;
-        } else if (x >= itemWidth) {
-          x = -trackWidth + itemWidth;
+
+        if (direction === -1) {
+          if (x <= -trackWidth) {
+            x += trackWidth;
+          }
+        } else {
+          if (x >= itemWidth) {
+            x -= trackWidth;
+          }
         }
+
         track.style.transform = `translateX(${x}px)`;
       });
-
-
     }
 
-    // Navbar desaparece al hacer scroll
+
     ScrollTrigger.create({
       trigger: 'body',
       start: 'top 100',
@@ -156,7 +173,7 @@ function App() {
     setCartItems(prev => prev.filter((_, i) => i !== index));
   };
 
-  const filteredProductos = productos.filter(p => p.price <= priceFilter && (colorFilter === '' || p.color === colorFilter));
+  const filteredProductos = productos.filter(p => p.precio <= precioFilter && (colorFilter === '' || p.color === colorFilter));
 
   const handleBannerClose = () => {
     setBannerVisible(false);
@@ -178,7 +195,7 @@ function App() {
           <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <a href="#hero" onClick={() => { setMenuOpen(false); }}>Inicio</a>
             <a href="#nuestros-productos" onClick={() => { scrollToProductos(); setMenuOpen(false); }}>Productos</a>
-            <a href="#about" onClick={() => { setMenuOpen(false); }}>Sobre Nosotros</a>
+            <a href="#about" onClick={() => { setMenuOpen(false); }}>Sobre MayArt</a>
             <a href="#contact" className="nav-contact" onClick={() => { setMenuOpen(false); }}>Contacto</a>
           </div>
           <button className="cart-icon" onClick={() => setCartOpen(true)}>
@@ -200,7 +217,7 @@ function App() {
           </button>
         </div>
         <div className="hero-image-wrapper" ref={heroImageRef}>
-        
+
         </div>
       </section>
 
@@ -211,7 +228,7 @@ function App() {
             {[1, 2, 3, 1, 2, 3].map((n, i) => (
               <div className="carousel-item" key={i}>
                 <img src={`/images/imagescuadro${n}.jpg`} alt={`Cuadro ${n}`} />
-                <p>Cuadro {n}</p>
+                <p></p>
               </div>
             ))}
           </div>
@@ -224,14 +241,14 @@ function App() {
             <h3>FILTRAR</h3>
             <div className="filtro-precio">
               <label>
-                Precio: <span>${priceFilter}</span>
+                Precio: <span>${precioFilter}</span>
               </label>
               <input
                 type="range"
                 min="0"
                 max="50000"
-                value={priceFilter}
-                onChange={e => setPriceFilter(Number(e.target.value))}
+                value={precioFilter}
+                onChange={e => setPrecioFilter(Number(e.target.value))}
               />
             </div>
             <div className="filtro-color">
@@ -263,7 +280,7 @@ function App() {
                   </button>
                 </div>
                 <h4>{p.name}</h4>
-                <p className="precio">${p.price}</p>
+                <p className="precio">${p.precio}</p>
                 <p className="descripcion">{p.description}</p>
               </div>
             ))}
@@ -273,11 +290,21 @@ function App() {
       </section>
 
       <section id="about" className={`about ${aboutLoaded ? 'loaded' : ''}`} ref={aboutRef}>
-        <h2>Sobre Nosotros</h2>
+        <h2>Sobre MayArt</h2>
         <p>
-          Somos una tienda familiar dedicada a la confección de textiles de lino,
-          algodón y materiales sostenibles...
+          Ser reconocidos como una marca líder en servicios integrales en diseño de interiores,
+          productos de arte y regalos personalizados. Destacándonos por nuestra calidad,
+          innovación y el impacto emocional que generan nuestras creaciones en las personas y sus relaciones.
+          MayArt inspira y conecta emocionalmente con las personas a través del arte,
+          transformando espacios que logren inmortalizar recuerdos y generen armonía.
+            Contando a su vez con piezas personalizadas, con teniendo detalles únicos, creativos y significado.
         </p>
+        <h2>Nuestra visión</h2>
+        <p>Ser reconocidos como una marca líder en servicios integrales en diseño de interiores,
+          productos de arte y regalos personalizados. Destacándonos por nuestra calidad,
+          innovación y el impacto emocional que generan nuestras creaciones en las personas y sus relaciones.</p>
+        <h2>Valores de Mayart</h2>
+
       </section>
 
       <section id="testimonios" className={`testimonios ${testimoniosLoaded ? 'loaded' : ''}`} ref={testimoniosRef}>
@@ -314,7 +341,7 @@ function App() {
                   <img src={`/images/${item.image}`} alt={item.name} />
                   <div className="item-info">
                     <h4>{item.name}</h4>
-                    <p>${item.price}</p>
+                    <p>${item.precio}</p>
                   </div>
                   <button className="remove-item" onClick={() => removeFromCart(i)}>
                     ×
@@ -327,7 +354,7 @@ function App() {
         {cartItems.length > 0 && (
           <div className="cart-summary">
             <p className="total">
-              Total: ${cartItems.reduce((sum, item) => sum + item.price * item.quantity, 0)}
+              Total: ${cartItems.reduce((sum, item) => sum + item.precio * item.quantity, 0)}
             </p>
             <button className="btn-primary">Finalizar Compra</button>
           </div>
