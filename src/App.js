@@ -44,7 +44,7 @@ function App() {
     requestAnimationFrame(raf);
 
     const tl = gsap.timeline();
-    if (bannerVisible) tl.from('.banner', { y: -50, opacity: 0, duration: 0.5 });
+    if (bannerVisible) tl.from('.banner', { y: -50, opacity: 0, duration: 1.5 });
     tl.from(navbarRef.current, { y: -80, opacity: 0, duration: 0.5 }, bannerVisible ? '-=0.2' : 0);
     if (heroImageRef.current) tl.from(heroImageRef.current, { x: '20%', opacity: 0, duration: 1.5 }, bannerVisible ? '-=0.5' : 0.2);
 
@@ -58,14 +58,20 @@ function App() {
     if (carouselRef.current) {
       const track = carouselRef.current.querySelector('.carousel-track');
       const items = Array.from(track.children);
-      const trackWidth = track.scrollWidth;
-      let x = 0;
-      const speed = 3;
-      items.forEach(item => track.appendChild(item.cloneNode(true)));
-      gsap.ticker.add(() => {
-        x -= speed;
-        if (x <= -trackWidth) x += trackWidth;
-        track.style.transform = `translateX(${x}px)`;
+      const itemWidth = items[0]?.offsetWidth || 0;
+      const totalWidth = itemWidth * items.length;
+      const containerWidth = carouselRef.current.offsetWidth;
+      const distanceToStop = Math.max(0, totalWidth - containerWidth); // Asegurarse de no desplazar negativamente si el contenido es menor que el contenedor
+
+      gsap.to(track, {
+        x: `-${distanceToStop}px`,
+        duration: 10, // Ajusta la duración según la velocidad deseada
+        ease: 'linear',
+        repeat: 0, // No repetir la animación
+        onComplete: () => {
+          // Opcional: Puedes agregar alguna acción al finalizar la animación
+          console.log('Animación del carrusel completada.');
+        }
       });
     }
 
@@ -159,13 +165,14 @@ function App() {
       <section className="carousel-section" ref={carouselRef}>
         <h2>Productos destacados</h2>
         <div className="carousel-track">
-          {[1, 2, 3, 1, 2, 3].map((n, i) => (
-            <div className="carousel-item" key={i}>
+          {[1, 2, 3].map((n) => (
+            <div className="carousel-item" key={n}>
               <img src={`/images/imagescuadro${n}.jpg`} alt={`Destacado ${n}`} />
             </div>
           ))}
         </div>
       </section>
+
 
       <section id="nuestros-productos" className="productos-section">
         <div className="productos-container">

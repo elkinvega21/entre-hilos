@@ -46,7 +46,11 @@ a {
   top: 0;
   width: 100%;
   background: #fff;
-  padding: 1rem 2rem;
+  /* padding: 1rem 2rem; Probablemente este padding vertical es la causa */
+  padding-top: 0.5rem; /* Intenta reducir el padding superior */
+  padding-bottom: 0.5rem; /* Intenta reducir el padding inferior */
+  padding-left: 2rem;
+  padding-right: 2rem;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: transform 0.3s, opacity 0.3s;
   z-index: 1001;
@@ -57,11 +61,17 @@ a {
   display: flex;
   justify-content: space-between;
   align-items: center;
+  /* padding: 0.5rem 0; Si el contenido tiene padding, podrías reducirlo también */
+  padding-top: 0;
+  padding-bottom: 0;
 }
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
   color: #e91e63;
+  /* margin: 0; Asegúrate de que no haya márgenes verticales innecesarios */
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .menu-toggle {
   display: none;
@@ -77,11 +87,19 @@ a {
 .nav-links.open {
   display: flex;
 }
+.nav-links a {
+  /* padding: 0.5rem 0; Reduce el padding vertical de los enlaces si es necesario */
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 .nav-contact {
   background: #fce4ec;
   color: #e91e63;
   padding: 0.5rem 1rem;
   border-radius: 5px;
+  /* margin: 0; Asegúrate de que no haya márgenes verticales innecesarios */
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .cart-icon {
   background: none;
@@ -90,6 +108,9 @@ a {
   color: #e91e63;
   position: relative;
   cursor: pointer;
+  /* margin: 0; Asegúrate de que no haya márgenes verticales innecesarios */
+  margin-top: 0;
+  margin-bottom: 0;
 }
 .cart-count {
   position: absolute;
@@ -485,57 +506,14 @@ a {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #999;
-  font-style: italic;
-}
-
-/* — Modal formulario — */
-.modal-backdrop {
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.5);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  z-index: 1002;
-}
-.modal {
-  background: #fff;
+  text-align: center;
+  color: #777;
+  font-size: 1.2rem;
   padding: 2rem;
+  background: #f9f9f9;
   border-radius: 8px;
-  max-width: 400px;
-  width: 90%;
-}
-.modal h2 {
-  margin-top: 0;
-  color: #e91e63;
-}
-.modal form {
-  display: flex;
-  flex-direction: column;
-  gap: 1rem;
-}
-.modal label {
-  display: flex;
-  flex-direction: column;
-  font-size: 0.9rem;
-  color: #333;
-}
-.modal input,
-.modal select {
-  padding: 0.5rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-}
-.btn-primary.finalizar {
-  background: #e91e63;
-  color: #fff;
-  border: none;
-  padding: 0.75rem;
-  border-radius: 25px;
-  cursor: pointer;
-  transition: background 0.3s;
-}
-.btn-primary.finalizar:hover {
-  background: #c2185b;
+  margin: 1rem 0;
+  border: 1px dashed #ccc;
+  opacity: 0.8;
+  transition: opacity 0.3s;
 }
