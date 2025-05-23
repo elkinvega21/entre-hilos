@@ -9,8 +9,8 @@ html {
   margin: 0;
   padding: 0;
   font-family: Arial, sans-serif;
-  background-color: #e9cfcf;
-  color: #333;
+  background-color: #ffffff;
+  color: #2c2b2b;
   scroll-behavior: smooth;
 }
 a {
@@ -20,8 +20,8 @@ a {
 
 /* — Banner — */
 .banner {
-  background: #e91e63;
-  color: #fff;
+  background: #ffffff;
+  color: #ffd8d8;
   text-align: center;
   padding: 0.8rem 0;
   position: fixed;
@@ -35,7 +35,7 @@ a {
   right: 10px;
   background: none;
   border: none;
-  color: #fff;
+  color: #fffbfb;
   font-size: 1.5rem;
   cursor: pointer;
 }
@@ -68,7 +68,7 @@ a {
 .logo {
   font-size: 1.8rem;
   font-weight: bold;
-  color: #e91e63;
+  color: #807e0a;
   /* margin: 0; Asegúrate de que no haya márgenes verticales innecesarios */
   margin-top: 0;
   margin-bottom: 0;
@@ -76,7 +76,7 @@ a {
 .menu-toggle {
   display: none;
   font-size: 1.8rem;
-  color: #e91e63;
+  color: #030001;
   cursor: pointer;
 }
 .nav-links {
@@ -93,8 +93,8 @@ a {
   padding-bottom: 0.25rem;
 }
 .nav-contact {
-  background: #fce4ec;
-  color: #e91e63;
+  background: #ffffff;
+  color: #ffffff;
   padding: 0.5rem 1rem;
   border-radius: 5px;
   /* margin: 0; Asegúrate de que no haya márgenes verticales innecesarios */

@@ -137,12 +137,12 @@ function App() {
 
       <nav className="navbar" ref={navbarRef}>
         <div className="navbar-content">
-          <a href="/" className="logo">MayArt</a>
+          <a href="/" className="logo">Woman Tech</a>
           <FaBars className="menu-toggle" onClick={() => setMenuOpen(!menuOpen)} />
           <div className={`nav-links ${menuOpen ? 'open' : ''}`}>
             <a href="#hero" onClick={() => setMenuOpen(false)}>Inicio</a>
             <a href="#nuestros-productos" onClick={() => { scrollToProductos(); setMenuOpen(false); }}>Productos</a>
-            <a href="#about" onClick={() => setMenuOpen(false)}>Sobre MayArt</a>
+            <a href="#about" onClick={() => setMenuOpen(false)}>Sobre Woman Tech</a>
             <a href="#contact" onClick={() => setMenuOpen(false)}>Contacto</a>
           </div>
           <button className="cart-icon" onClick={() => setCartOpen(true)}>
@@ -225,7 +225,7 @@ function App() {
       </section>
 
       <section id="about" className="about" ref={aboutRef}>
-        <h2>Sobre MayArt</h2>
+        <h2>Woman Tech</h2>
         <p>Ser reconocidos como una marca líder en servicios integrales en diseño de interiores, productos de arte y regalos personalizados...</p>
       </section>
 
