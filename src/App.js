@@ -21,18 +21,32 @@ function App() {
   const [colorFilter, setColorFilter] = useState('');
   const [bannerVisible, setBannerVisible] = useState(true);
 
+  // Refs
   const navbarRef = useRef(null);
   const heroImageRef = useRef(null);
   const carouselRef = useRef(null);
   const aboutRef = useRef(null);
+  const videoSectionRef = useRef(null); 
   const manualidadesRef = useRef(null);
   const comidasRef = useRef(null);
   const testimoniosRef = useRef(null);
   const contactRef = useRef(null);
+  const inscripcionRef = useRef(null);
   
-  const lenisRef = useRef(null); // Ref para la instancia de Lenis
-  const rafIdRef = useRef(null); // Ref para el ID de requestAnimationFrame
+  const lenisRef = useRef(null); 
+  const rafIdRef = useRef(null); 
 
+  // Estados del formulario de inscripción
+  const [inscripcionForm, setInscripcionForm] = useState({
+    nombre: '',
+    email: '',
+    telefono: '',
+    mensaje: '',
+  });
+  const [isSubmittingInscripcion, setIsSubmittingInscripcion] = useState(false);
+  const [inscripcionStatus, setInscripcionStatus] = useState(''); 
+
+  // Datos de productos (sin cambios)
   const productosManualidades = [
     { id: 1, name: 'Brillo Lunar', precio: 25000, description: 'Pequeño bolso o neceser tejido en verde intenso con una rica textura trenzada, ideal para llevar tus esenciales con estilo', image: 'producto1.jpg', color: '#f0f', type: 'manualidad' },
     { id: 2, name: 'Vibra Cósmica', precio: 18000, description: 'Llamativo bolso de mano en combinación de rosa y negro, con asas cortas y un coqueto detalle de borla, perfecto para destacar.', image: 'producto2.jpg', color: '#0f0', type: 'manualidad' },
@@ -50,7 +64,6 @@ function App() {
   useEffect(() => {
     console.log("App.js: useEffect triggered. bannerVisible:", bannerVisible);
 
-    // 1. Inicialización de Lenis
     lenisRef.current = new Lenis({
         duration: 1.2,
         easing: t => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
@@ -63,63 +76,53 @@ function App() {
         rafIdRef.current = requestAnimationFrame(raf);
     }
     rafIdRef.current = requestAnimationFrame(raf);
-    console.log("App.js: Lenis initialized and raf started.");
+    // console.log("App.js: Lenis initialized and raf started."); // Puede ser muy verboso
 
-    // 2. Timeline principal de GSAP para animaciones iniciales
     const tl = gsap.timeline({
         onStart: () => console.log("App.js: Initial timeline STARTED"),
         onComplete: () => console.log("App.js: Initial timeline COMPLETED SUCCESSFULLY"),
     });
 
-    // Animación del Banner
     if (bannerVisible) {
         const bannerEl = document.querySelector('.banner');
         if (bannerEl) {
-            console.log("App.js: Adding BANNER animation.");
             tl.fromTo(bannerEl,
                 { y: -50, opacity: 0 },
                 { y: 0, opacity: 1, duration: 0.8, ease: 'power2.out', onComplete: () => console.log("App.js: -> BANNER animation complete.") }
             );
-        } else { console.warn("App.js: .banner element not found."); }
-    } else { console.log("App.js: Banner not visible, skipping animation."); }
+        }
+    }
 
-    // Animación de la Navbar
     if (navbarRef.current) {
-        console.log("App.js: Adding NAVBAR animation.");
         tl.fromTo(navbarRef.current,
             { y: -80, opacity: 0 },
             { y: 0, opacity: 1, duration: 0.6, ease: 'power2.out', onComplete: () => console.log("App.js: -> NAVBAR animation complete.") },
-            (bannerVisible && document.querySelector('.banner')) ? "-=0.4" : (tl.getChildren().length > 0 ? ">" : "0.1") // Delay si es el primer elemento
+            (bannerVisible && document.querySelector('.banner')) ? "-=0.4" : (tl.getChildren().length > 0 ? ">" : "0.1") 
         );
-    } else { console.warn("App.js: navbarRef.current is null."); }
+    }
 
-    // Animación de la Sección Hero Text
     if (heroImageRef.current) {
         const heroTextEl = heroImageRef.current.querySelector('.hero-text');
         if (heroTextEl) {
-            console.log("App.js: Adding HERO TEXT animation.");
             tl.fromTo(heroTextEl,
                 { x: -30, opacity: 0 },
                 { x: 0, opacity: 1, duration: 0.7, ease: 'power2.out', onComplete: () => console.log("App.js: -> HERO TEXT animation complete.") },
                 ">-0.3" 
             );
-        } else { console.warn("App.js: .hero-text not found in heroImageRef."); }
-    } else { console.warn("App.js: heroImageRef.current is null."); }
-
-    if (tl.getChildren().length === 0) { // Si no se añadió ninguna animación a la timeline principal
-        console.warn("App.js: No animations added to the initial timeline. Content might appear abruptly or not at all if styled with opacity 0 initially.");
+        }
     }
-    console.log("App.js: Initial timeline configured with " + tl.getChildren().length + " main tweens.");
+    
+    // console.log("App.js: Initial timeline configured with " + tl.getChildren().length + " main tweens.");
 
-
-    // 3. Animaciones para otras secciones con ScrollTrigger
     const sectionsToAnimate = [
         { ref: carouselRef, name: "Carousel" },
         { ref: manualidadesRef, name: "Manualidades" },
         { ref: comidasRef, name: "Comidas" },
         { ref: aboutRef, name: "About" },
+        { ref: videoSectionRef, name: "VideoInformativo" },
         { ref: testimoniosRef, name: "Testimonios" },
-        { ref: contactRef, name: "Contact" }
+        { ref: contactRef, name: "Contact" },
+        { ref: inscripcionRef, name: "Inscripcion" }
     ];
 
     sectionsToAnimate.forEach((section) => {
@@ -133,18 +136,14 @@ function App() {
                         trigger: section.ref.current,
                         start: 'top 88%',
                         toggleActions: 'play none none none',
-                         // markers: true, // Descomentar para depuración visual
-                        onEnter: () => console.log(`App.js: Section ${section.name} animation triggered.`),
+                        // onEnter: () => console.log(`App.js: Section ${section.name} animation triggered.`), // Puede ser verboso
                     },
                 }
             );
-        } else {
-             console.warn(`App.js: Ref for section ${section.name} is null (ScrollTrigger animation not set).`);
         }
     });
-    console.log("App.js: ScrollTrigger animations for sections configured.");
+    // console.log("App.js: ScrollTrigger animations for sections configured.");
 
-    // 4. ScrollTrigger para la animación de la Navbar al hacer scroll
     if (navbarRef.current) {
         ScrollTrigger.create({
             trigger: 'body', 
@@ -161,31 +160,22 @@ function App() {
                 }
             },
         });
-        console.log("App.js: ScrollTrigger for navbar hiding/showing created.");
-    } else {
-        console.warn("App.js: navbarRef.current is null, cannot create ScrollTrigger for navbar hiding.");
     }
     
-    // 5. Función de limpieza
     return () => {
         console.log("App.js: useEffect cleanup START");
         if (rafIdRef.current) {
             cancelAnimationFrame(rafIdRef.current);
-            console.log("App.js: requestAnimationFrame cancelled.");
+            rafIdRef.current = null; 
         }
         if (lenisRef.current) {
             lenisRef.current.destroy();
             lenisRef.current = null;
-            console.log("App.js: Lenis destroyed.");
         }
         
         tl.kill();
-        console.log("App.js: Main timeline killed.");
-        
         ScrollTrigger.getAll().forEach(st => st.kill());
-        console.log("App.js: All ScrollTriggers killed.");
         
-        // Limpieza adicional de tweens de GSAP para evitar fugas
         gsap.killTweensOf([
             document.querySelector('.banner'),
             navbarRef.current,
@@ -194,40 +184,16 @@ function App() {
             manualidadesRef.current,
             comidasRef.current,
             aboutRef.current,
+            videoSectionRef.current, 
             testimoniosRef.current,
-            contactRef.current
-        ].filter(Boolean)); // Filtra elementos nulos antes de pasarlos a killTweensOf
-        console.log("App.js: Specific GSAP tweens killed.");
+            contactRef.current,
+            inscripcionRef.current
+        ].filter(Boolean)); 
         console.log("App.js: useEffect cleanup COMPLETE");
     };
 }, [bannerVisible]);
 
-  const scrollToSection = (sectionId) => {
-    const element = document.getElementById(sectionId);
-    if (element) {
-      if (lenisRef.current) { 
-        let offsetValue = 0;
-        if (navbarRef.current) {
-            // Calcula el offset solo si la navbar no está oculta (o en proceso de ocultarse)
-            // Esta es una lógica simplificada; podría necesitar ser más robusta
-            // verificando el estilo 'transform' o 'opacity' de la navbar.
-            const navStyle = window.getComputedStyle(navbarRef.current);
-            if (parseFloat(navStyle.opacity) > 0.5) { // Si la navbar es visible
-                 offsetValue = -navbarRef.current.offsetHeight - 10; // 10px de espacio extra
-            }
-        }
-        lenisRef.current.scrollTo(element, { 
-            duration: 1.5, 
-            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-            offset: offsetValue 
-        });
-      } else {
-        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }
-    }
-    setMenuOpen(false);
-  };
-
+  // --- Funciones del Carrito ---
   const addToCart = producto => {
     setCartItems(prev => {
       const exists = prev.find(p => p.id === producto.id && p.type === producto.type);
@@ -260,6 +226,54 @@ function App() {
 
   const handleBannerClose = () => setBannerVisible(false);
 
+  // --- Funciones de Navegación y Scroll ---
+  const scrollToSection = (sectionId) => {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      if (lenisRef.current) { 
+        let offsetValue = 0;
+        if (navbarRef.current) {
+            const navStyle = window.getComputedStyle(navbarRef.current);
+            if (parseFloat(navStyle.opacity) > 0.5) { 
+                 offsetValue = -navbarRef.current.offsetHeight - 10; 
+            }
+        }
+        lenisRef.current.scrollTo(element, { 
+            duration: 1.5, 
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            offset: offsetValue 
+        });
+      } else {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }
+    setMenuOpen(false);
+  };
+
+  // --- Funciones del Formulario de Inscripción ---
+  const handleInscripcionChange = (e) => {
+    const { name, value } = e.target;
+    setInscripcionForm(prev => ({ ...prev, [name]: value }));
+  };
+
+  const handleInscripcionSubmit = async (e) => {
+    e.preventDefault();
+    setIsSubmittingInscripcion(true);
+    setInscripcionStatus(''); 
+    console.log("App.js: Datos del formulario de inscripción:", inscripcionForm);
+
+    setTimeout(() => {
+      if (Math.random() > 0.1) { 
+        setInscripcionStatus('success');
+        setInscripcionForm({ nombre: '', email: '', telefono: '', mensaje: '' }); 
+      } else {
+        setInscripcionStatus('error: Falló la simulación de envío.');
+      }
+      setIsSubmittingInscripcion(false);
+    }, 2000);
+  };
+
+  // --- JSX del Componente ---
   return (
     <div className="App">
       {bannerVisible && (
@@ -277,9 +291,11 @@ function App() {
             <a href="#hero" onClick={(e) => { e.preventDefault(); scrollToSection('hero'); }}>Inicio</a>
             <a href="#manualidades" onClick={(e) => { e.preventDefault(); scrollToSection('manualidades'); }}>Manualidades</a>
             <a href="#comidas" onClick={(e) => { e.preventDefault(); scrollToSection('comidas'); }}>Comida</a>
-            <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>Sobre Woman Tech</a>
+            <a href="#about" onClick={(e) => { e.preventDefault(); scrollToSection('about'); }}>Sobre Woman Tech</a> {/* Este enlace se mantiene */}
+            {/* El enlace "Conócenos Más" se ha eliminado */}
             <a href="#testimonios" onClick={(e) => { e.preventDefault(); scrollToSection('testimonios'); }}>Testimonios</a>
             <a href="#contact" onClick={(e) => { e.preventDefault(); scrollToSection('contact'); }}>Contacto</a>
+            <a href="#inscripcion-programa" onClick={(e) => { e.preventDefault(); scrollToSection('inscripcion-programa'); }}>Inscríbete</a>
           </div>
           <button className="cart-icon" onClick={() => setCartOpen(true)}>
             <FaShoppingCart />
@@ -386,13 +402,35 @@ function App() {
         </div>
       </section>
 
-
       <section id="about" className="about" ref={aboutRef}>
         <h2>Objetivo</h2>
         <p>
           Woman Tech busca empoderar económicamente a mujeres en comunidades rurales mediante una plataforma digital que visibiliza y potencia sus talentos, conocimientos ancestrales y habilidades productivas. El objetivo es facilitar su acceso a herramientas tecnológicas, mercados digitales y redes de colaboración para generar oportunidades sostenibles, promover su integración comunitaria, valorizar sus saberes tradicionales y reducir la brecha de género en el acceso a la tecnología y el emprendimiento digital.
         </p>
       </section>
+
+      {/* ---------- Sección de Video ---------- */}
+      <section id="video-informativo" className="video-section" ref={videoSectionRef}>
+        <div className="video-container">
+          <h2>Conoce Más Sobre Woman Tech</h2> {/* Puedes cambiar este título si lo deseas */}
+          <div className="video-wrapper">
+            <iframe 
+              width="560" 
+              height="315" 
+              src="https://www.google.com/search?q=https://www.youtube.com/watch%3Fv%3DdQw4w9WgXcQ3
+
+" /* EJEMPLO: REEMPLAZA QH2-TGUlwu4 con el ID de tu video */
+              title="Video Informativo Woman Tech" 
+              frameBorder="0" 
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" 
+              referrerPolicy="strict-origin-when-cross-origin" 
+              allowFullScreen>
+            </iframe>
+          </div>
+           <p>Descubre cómo nuestra plataforma está transformando vidas y comunidades.</p>
+        </div>
+      </section>
+      {/* ------------------------------------------ */}
 
       <section id="testimonios" className="testimonios" ref={testimoniosRef}>
         <h2>Testimonios</h2>
@@ -414,6 +452,74 @@ function App() {
         <p>Visítanos en ...</p>
       </section>
 
+      <section id="inscripcion-programa" className="inscripcion-section" ref={inscripcionRef}>
+        <div className="inscripcion-container">
+          <h2>Inscríbete en Woman Tech</h2>
+          <p>Completa el formulario para unirte a nuestro programa y potenciar tus habilidades.</p>
+          
+          <form onSubmit={handleInscripcionSubmit} className="inscripcion-form">
+            <div className="form-group">
+              <label htmlFor="nombre-inscripcion">Nombre Completo:</label>
+              <input 
+                type="text" 
+                id="nombre-inscripcion" 
+                name="nombre" 
+                value={inscripcionForm.nombre}
+                onChange={handleInscripcionChange}
+                required 
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="email-inscripcion">Correo Electrónico:</label>
+              <input 
+                type="email" 
+                id="email-inscripcion" 
+                name="email" 
+                value={inscripcionForm.email}
+                onChange={handleInscripcionChange}
+                required 
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="telefono-inscripcion">Teléfono (Opcional):</label>
+              <input 
+                type="tel" 
+                id="telefono-inscripcion" 
+                name="telefono"
+                value={inscripcionForm.telefono}
+                onChange={handleInscripcionChange}
+              />
+            </div>
+            <div className="form-group">
+              <label htmlFor="mensaje-inscripcion">Cuéntanos sobre ti (Opcional):</label>
+              <textarea 
+                id="mensaje-inscripcion" 
+                name="mensaje"
+                rows="4"
+                value={inscripcionForm.mensaje}
+                onChange={handleInscripcionChange}
+              ></textarea>
+            </div>
+            <button type="submit" className="btn-primary btn-submit-inscripcion" disabled={isSubmittingInscripcion}>
+              {isSubmittingInscripcion ? 'Enviando...' : 'Inscribirme Ahora'}
+            </button>
+          </form>
+
+          {inscripcionStatus && (
+            <div className={`inscripcion-status-message ${inscripcionStatus.startsWith('success') ? 'success' : 'error'}`}>
+              {inscripcionStatus.startsWith('success') 
+                ? '¡Inscripción exitosa! Hemos recibido tus datos. (Simulación: Se habría enviado un correo de confirmación).' 
+                : `Error: ${inscripcionStatus.substring(7)} Por favor, inténtalo de nuevo.`
+              }
+            </div>
+          )}
+          <p className="nota-simulacion">
+            <strong>¡Gracias por preferirnos!</strong> 
+          </p>
+        </div>
+      </section>
+
+      {/* --- Paneles de Carrito y Modal de Pago --- */}
       <div className={`cart-panel ${cartOpen ? 'open' : ''}`}>
         <button className="close-cart" onClick={() => setCartOpen(false)}>×</button>
         <h3>Tu Carrito</h3>

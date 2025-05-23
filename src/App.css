@@ -227,9 +227,9 @@ a {
 }
 
 .carousel-section h2 { /* Título "Productos destacados" */
-  color: #e91e63;       /* Color temático */
-  font-size: 2.5em;    /* Tamaño del título */
-  font-weight: 600;    /* Grosor de la fuente */
+  color: #e91e63;        /* Color temático */
+  font-size: 2.5em;     /* Tamaño del título */
+  font-weight: 600;     /* Grosor de la fuente */
   margin-bottom: 2.5rem; /* Espacio debajo del título */
 }
 
@@ -403,6 +403,9 @@ a {
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   flex-grow: 1;
 }
+.productos-grid.full-width { /* Añadido para la sección de comidas sin filtros */
+    width: 100%;
+}
 .producto-card {
   background: #fff; /* Fondo blanco para destacar la sombra */
   border-radius: 12px; /* Más redondeado */
@@ -419,14 +422,12 @@ a {
 }
 .imagen-wrapper {
   position: relative;
-  /* padding-top: 75%; Eliminar si las imágenes tienen aspect ratio fijo, o ajustar */
   width: 100%;
   height: 220px; /* Altura fija para las imágenes de producto, ajustar según necesidad */
   overflow: hidden;
-  /* border-bottom: 1px solid #eee; */ /* Opcional */
 }
 .imagen-wrapper img {
-  position: absolute; /* Ya lo tienes, pero si quitas padding-top, asegúrate que esto funciona */
+  position: absolute; 
   top: 0;
   left: 0;
   width: 100%;
@@ -473,7 +474,7 @@ a {
   color: #777;
   padding: 0 1rem 1rem;
   line-height: 1.5;
-  flex-grow: 1; /* Para empujar el botón de compra (si estuviera abajo) */
+  flex-grow: 1; 
   margin-bottom: 0.5rem;
 }
 
@@ -501,29 +502,29 @@ a {
   background: #f9f9f9;
   text-align: center;
 }
-.testimonios h2 { /* Añadido para consistencia */
+.testimonios h2 { 
     color: #e91e63;
-    margin-bottom: 2.5rem; /* Espacio debajo del título */
+    margin-bottom: 2.5rem; 
     font-size: 2.2em;
 }
 .testimonios-grid {
   display: grid;
-  gap: 2rem; /* Más espacio */
-  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* Ajuste de minmax */
-  max-width: 1200px; /* Ancho máximo para centrar */
+  gap: 2rem; 
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); 
+  max-width: 1200px; 
   margin: 0 auto;
 }
 .testimonio {
   background: #fff;
   border: 1px solid #f8bbd0;
-  padding: 2rem; /* Más padding */
-  border-radius: 12px; /* Más redondeado */
+  padding: 2rem; 
+  border-radius: 12px; 
   transition: transform 0.3s, box-shadow 0.3s;
   box-shadow: 0 4px 10px rgba(0,0,0,0.05);
 }
 .testimonio:hover {
-  transform: translateY(-8px); /* Efecto más pronunciado */
-  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.15); /* Sombra con color temático */
+  transform: translateY(-8px); 
+  box-shadow: 0 8px 20px rgba(233, 30, 99, 0.15); 
 }
 .testimonio strong {
     color: #e91e63;
@@ -542,7 +543,7 @@ a {
   margin-bottom: 1.5rem;
   font-size: 2.2em;
 }
-.contact p { /* Añadido para consistencia */
+.contact p { 
     max-width: 800px;
     margin: 0 auto 1rem auto;
     line-height: 1.6;
@@ -554,22 +555,22 @@ a {
   position: fixed;
   top: 0;
   right: 0;
-  width: 100%; /* Ocupa todo el ancho en móvil */
-  max-width: 380px; /* Ancho máximo en pantallas grandes */
+  width: 100%; 
+  max-width: 380px; 
   height: 100%;
   background: #fff;
   box-shadow: -4px 0 12px rgba(0, 0, 0, 0.2);
   transform: translateX(100%);
-  transition: transform 0.4s ease-in-out; /* Transición más suave */
+  transition: transform 0.4s ease-in-out; 
   display: flex;
   flex-direction: column;
   padding: 20px;
-  z-index: 1003; /* Encima del banner y navbar */
+  z-index: 1003; 
 }
 .cart-panel.open {
   transform: translateX(0);
 }
-.cart-panel h3 { /* Estilo para el título del carrito */
+.cart-panel h3 { 
     text-align: center;
     color: #e91e63;
     font-size: 1.5rem;
@@ -581,10 +582,10 @@ a {
   align-self: flex-end;
   background: none;
   border: none;
-  font-size: 1.8rem; /* Más grande */
+  font-size: 1.8rem; 
   cursor: pointer;
-  color: #aaa; /* Más sutil */
-  padding: 0.5rem; /* Área de tap más grande */
+  color: #aaa; 
+  padding: 0.5rem; 
   line-height: 1;
 }
 .close-cart:hover {
@@ -594,9 +595,9 @@ a {
   flex-grow: 1;
   overflow-y: auto;
   margin-bottom: 1rem;
-  padding-right: 5px; /* Espacio para la barra de scroll */
+  padding-right: 5px; 
 }
-/* Estilo para la barra de scroll (opcional, para Webkit) */
+
 .cart-items-container::-webkit-scrollbar {
   width: 6px;
 }
@@ -615,7 +616,7 @@ a {
 .cart-item {
   display: flex;
   gap: 1rem;
-  padding: 1rem 0.5rem; /* Padding ajustado */
+  padding: 1rem 0.5rem; 
   border-bottom: 1px solid #eee;
   align-items: center;
 }
@@ -623,13 +624,13 @@ a {
     border-bottom: none;
 }
 .cart-item img {
-  width: 70px; /* Ligeramente más grande */
+  width: 70px; 
   height: 70px;
   object-fit: cover;
-  border-radius: 8px; /* Más redondeado */
+  border-radius: 8px; 
 }
 .item-info {
-    flex-grow: 1; /* Para que ocupe el espacio disponible */
+    flex-grow: 1; 
 }
 .item-info h4 {
   margin: 0 0 0.3rem;
@@ -648,20 +649,19 @@ a {
   margin: 0.1rem 0;
 }
 
-/* — Controles de cantidad — */
 .qty-controls {
   display: flex;
   align-items: center;
   gap: 0.5rem;
-  margin-top: 0.5rem; /* Más espacio */
+  margin-top: 0.5rem; 
 }
 .qty-controls button {
-  width: 28px; /* Más grande */
+  width: 28px; 
   height: 28px;
   border: none;
-  background: #f0f0f0; /* Fondo más sutil */
-  color: #e91e63; /* Color temático */
-  border-radius: 50%; /* Redondo */
+  background: #f0f0f0; 
+  color: #e91e63; 
+  border-radius: 50%; 
   cursor: pointer;
   font-size: 1rem;
   transition: background-color 0.2s;
@@ -673,57 +673,54 @@ a {
     background-color: #e0e0e0;
 }
 .qty-controls span {
-  min-width: 25px; /* Más ancho */
+  min-width: 25px; 
   text-align: center;
   font-size: 1rem;
   color: #333;
 }
 
-/* — Botón eliminar — */
 .remove-item {
   background: none;
   border: none;
-  font-size: 1.3rem; /* Ligeramente más grande */
-  color: #aaa; /* Color sutil */
-  margin-left: auto; /* Empuja a la derecha */
+  font-size: 1.3rem; 
+  color: #aaa; 
+  margin-left: auto; 
   cursor: pointer;
-  padding: 0.5rem; /* Área de tap */
+  padding: 0.5rem; 
   transition: color 0.2s;
 }
 .remove-item:hover {
-  color: #e91e63; /* Color temático en hover */
+  color: #e91e63; 
 }
 
-/* — Resumen del carrito — */
 .cart-summary {
-  border-top: 2px solid #f0f0f0; /* Línea más gruesa */
-  padding-top: 1.5rem; /* Más espacio */
-  margin-top: 1rem; /* Espacio antes del resumen */
+  border-top: 2px solid #f0f0f0; 
+  padding-top: 1.5rem; 
+  margin-top: 1rem; 
 }
 .cart-summary p {
   display: flex;
   justify-content: space-between;
-  margin: 0.75rem 0; /* Más espacio vertical */
+  margin: 0.75rem 0; 
   font-size: 1rem;
 }
 .cart-summary p span:first-child {
-    color: #555; /* Etiquetas más oscuras */
+    color: #555; 
 }
 .cart-summary .total {
   font-weight: bold;
   color: #e91e63;
-  margin-top: 1rem; /* Más espacio antes del total */
-  font-size: 1.2rem; /* Total más grande */
-  padding-top: 1rem; /* Espacio antes del total */
-  border-top: 1px dashed #ccc; /* Línea separadora */
+  margin-top: 1rem; 
+  font-size: 1.2rem; 
+  padding-top: 1rem; 
+  border-top: 1px dashed #ccc; 
 }
-.btn-primary.continuar { /* Hereda de .btn-primary */
+.btn-primary.continuar { 
   width: 100%;
-  padding: 0.9rem; /* Padding ajustado */
-  margin-top: 1.5rem; /* Espacio antes del botón */
+  padding: 0.9rem; 
+  margin-top: 1.5rem; 
 }
 
-/* — Carrito vacío — */
 .carrito-vacio {
   flex-grow: 1;
   display: flex;
@@ -731,8 +728,8 @@ a {
   justify-content: center;
   text-align: center;
   color: #777;
-  font-size: 1.1rem; /* Ligeramente más pequeño */
-  padding: 2rem 1rem; /* Ajuste de padding */
+  font-size: 1.1rem; 
+  padding: 2rem 1rem; 
   background: #f9f9f9;
   border-radius: 8px;
   margin: 1rem 0;
@@ -752,7 +749,7 @@ a {
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1005; /* Encima de todo */
+  z-index: 1005; 
   padding: 1rem;
 }
 .modal {
@@ -774,7 +771,7 @@ a {
 }
 .modal form label {
   display: block;
-  margin-bottom: 1.2rem; /* Más espacio entre labels */
+  margin-bottom: 1.2rem; 
   color: #555;
   font-weight: bold;
 }
@@ -782,7 +779,7 @@ a {
 .modal form input[type="email"],
 .modal form select {
   width: 100%;
-  padding: 0.8rem; /* Padding más generoso */
+  padding: 0.8rem; 
   margin-top: 0.3rem;
   border: 1px solid #ccc;
   border-radius: 6px;
@@ -796,8 +793,185 @@ a {
   box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
   outline: none;
 }
-.modal form .btn-primary.finalizar { /* Hereda de .btn-primary */
+.modal form .btn-primary.finalizar { 
   width: 100%;
   padding: 0.9rem;
   margin-top: 1.5rem;
 }
+
+
+/* ——— ESTILOS PARA LA NUEVA SECCIÓN DE INSCRIPCIÓN ——— */
+.inscripcion-section {
+  padding: 60px 20px; /* Similar a productos-section pero con padding horizontal fijo */
+  background-color: #f9f9f9; 
+  text-align: center;
+}
+
+.inscripcion-container {
+  max-width: 700px; /* Ancho máximo del contenido del formulario */
+  margin: 0 auto; /* Centrar el contenedor */
+  background-color: #fff;
+  padding: 30px 40px; /* Padding interno */
+  border-radius: 8px;
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+}
+
+.inscripcion-section h2 {
+  font-size: 2.2em; /* Coherente con otros títulos de sección */
+  color: #e91e63; /* Usando el color primario */
+  margin-bottom: 15px;
+}
+
+.inscripcion-section p { /* Estilo para el párrafo introductorio */
+  font-size: 1.1em;
+  color: #555;
+  margin-bottom: 30px;
+  line-height: 1.6;
+}
+
+.inscripcion-form .form-group {
+  margin-bottom: 20px;
+  text-align: left; /* Alineación de etiquetas e inputs */
+}
+
+.inscripcion-form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: bold;
+  color: #333;
+}
+
+.inscripcion-form input[type="text"],
+.inscripcion-form input[type="email"],
+.inscripcion-form input[type="tel"],
+.inscripcion-form textarea {
+  width: 100%;
+  padding: 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  box-sizing: border-box; 
+  font-size: 1em;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.inscripcion-form input[type="text"]:focus,
+.inscripcion-form input[type="email"]:focus,
+.inscripcion-form input[type="tel"]:focus,
+.inscripcion-form textarea:focus {
+  border-color: #e91e63; /* Resaltar al enfocar */
+  box-shadow: 0 0 0 2px rgba(233, 30, 99, 0.2);
+  outline: none;
+}
+
+.inscripcion-form textarea {
+  resize: vertical; 
+  min-height: 100px; /* Altura mínima para el textarea */
+}
+
+.btn-submit-inscripcion {
+  /* Hereda de .btn-primary o define estilos específicos. 
+     Asegúrate que .btn-primary esté definido como lo tienes. */
+  padding: 12px 30px;
+  font-size: 1.1em;
+  width: auto; /* O width: 100% si quieres que ocupe todo el ancho */
+  display: inline-block; /* Para que respete el text-align: center del contenedor si se desea */
+}
+
+.btn-submit-inscripcion:disabled {
+  background-color: #ccc;
+  border-color: #ccc; /* Si .btn-primary tiene borde */
+  color: #666;
+  cursor: not-allowed;
+}
+
+.inscripcion-status-message {
+  margin-top: 25px; /* Más espacio */
+  padding: 15px;
+  border-radius: 6px; /* Ligeramente más redondeado */
+  font-weight: 500; /* Peso de fuente normal-bold */
+  line-height: 1.5;
+}
+
+.inscripcion-status-message.success {
+  background-color: #d4edda; /* Verde más suave */
+  color: #155724; /* Verde oscuro para texto */
+  border: 1px solid #c3e6cb;
+}
+
+.inscripcion-status-message.error {
+  background-color: #f8d7da; /* Rojo más suave */
+  color: #721c24; /* Rojo oscuro para texto */
+  border: 1px solid #f5c6cb;
+}
+
+.nota-simulacion {
+  margin-top: 20px; /* Espacio antes de la nota */
+  font-size: 0.9em;
+  color: #6c757d; /* Color grisáceo */
+  font-style: italic;
+}
+
+/* App.css */
+
+/* ... (tus estilos existentes) ... */
+
+/* ---------- Estilos para la Sección de Video ---------- */
+.video-section {
+  padding: 60px 20px;
+  background-color: #fff; /* O un color de fondo que prefieras, ej. #f0e4f7 para un tono lavanda suave */
+  text-align: center;
+}
+
+.video-section .video-container { /* Contenedor para centrar y limitar el ancho */
+  max-width: 900px; /* Ancho máximo para el contenido de esta sección */
+  margin: 0 auto;
+}
+
+.video-section h2 {
+  font-size: 2.2em;
+  color: #e91e63; /* Color temático */
+  margin-bottom: 30px; /* Espacio debajo del título */
+}
+
+/* Contenedor responsivo para el iframe del video */
+.video-wrapper {
+  position: relative;
+  padding-bottom: 56.25%; /* Proporción 16:9 (para videos estándar de YouTube) */
+  /* 9 / 16 = 0.5625 */
+  height: 0;
+  overflow: hidden;
+  border-radius: 12px; /* Bordes redondeados para el video */
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15); /* Sombra sutil */
+  margin-bottom: 20px; /* Espacio después del video */
+}
+
+.video-wrapper iframe {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border: none; /* Quitar el borde por defecto del iframe */
+}
+
+.video-section .video-container p { /* Estilo para el párrafo descriptivo debajo del video */
+  font-size: 1.1em;
+  color: #555;
+  line-height: 1.6;
+  margin-top: 20px;
+}
+
+/* Ajustes para pantallas más pequeñas */
+@media (max-width: 768px) {
+  .video-section {
+    padding: 40px 15px;
+  }
+  .video-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 20px;
+  }
+  .video-section .video-container p {
+    font-size: 1em;
+  }
+}
+
